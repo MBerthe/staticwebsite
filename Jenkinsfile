@@ -9,7 +9,7 @@ pipeline {
     STAGING = "staticwebsite-mb-staging"
     PRODUCTION="staticwebsite-mb-prod"
     DOCKERHUB_ID = "mnberthe"
-    DOCKERHUB_PASSWORD = credentials('dockerhub')
+    DOCKERHUB_CREDENTIALS_USR = credentials('dockerhub')
     HEROKU_API_KEY  = credentials('heroku_api_key')
     INTERNAL_PORT = "80"
     EXTERNAL_PORT = "80"
@@ -68,7 +68,7 @@ pipeline {
       steps {
          script {
            sh '''
-               echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_ID --password-stdin
+               echo $DOCKERHUB_ID | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
                docker push ${DOCKERHUB_ID}/$IMAGE_NAME:$IMAGE_TAG
            '''
          }
